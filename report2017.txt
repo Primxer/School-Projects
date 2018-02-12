@@ -1,0 +1,38 @@
+============================================================
+  Contestants                      Distance        Time
+=============================================================
+  AKERS JONATHAN N                 20.90 ft     66.30 sec
+  ALEXANDER COLTON J               22.10 ft     52.90 sec
+  BARTLETT KATIE L                 22.30 ft     66.00 sec
+  CHAN HOIYIN                      19.30 ft     69.50 sec
+  CHEN ZEKUN                       24.20 ft     51.70 sec
+  COCHEBA SPENCER K                24.30 ft     68.90 sec
+  DAILEY JAKOB D                   20.30 ft     51.20 sec
+  DIETERICH ROGER M III            20.20 ft     54.60 sec
+  FEHRINGER LOGAN M                23.40 ft     57.50 sec
+  HEIMER GRAHAM C                  18.70 ft     69.80 sec
+  HEPPNER JORDON P                 22.10 ft     64.30 sec
+  IRCINK NATHALIE C                19.90 ft     63.00 sec
+  LAGUA MARVIN G                   22.30 ft     53.20 sec
+  LAMBETH JEREMIAH A               23.70 ft     50.50 sec
+  LIN SICHEN                       16.30 ft     68.30 sec
+  MARTINEZ JOSHUA                  22.40 ft     57.00 sec
+  NEW NATHAN T                     19.00 ft     55.00 sec
+  NII YOHEI                        18.30 ft     65.50 sec
+  NIX ETHAN V                      16.30 ft     69.20 sec
+  PALMER MATTHEW J                 23.30 ft     54.60 sec
+  PALUMBO ANTHONY V                20.30 ft     58.00 sec
+  PENG CHENGTING                   19.90 ft     67.50 sec
+  PERRY KENDALL J                  16.20 ft     64.00 sec
+  RAIGUEL DUSTIN J                 21.40 ft     63.30 sec
+  RIPLEY RONNIE C                  15.20 ft     61.80 sec
+  SANTIAGO JENNIFER                25.00 ft     66.50 sec
+  STEFFENS NATHANIEL R             17.60 ft     57.00 sec
+  SUPINEE PONGPOB                  15.10 ft     58.00 sec
+  TIMLICK CHRISTOPHER J            19.10 ft     68.00 sec
+  TRAMMELL REID M                  19.40 ft     49.20 sec
+  VALENCIA RYAN S                  24.00 ft     56.70 sec
+  WANG GUANGHAI                    16.80 ft     68.50 sec
+  WILLIAMS KEANDRE M               24.90 ft     66.40 sec
+  ZHENG YANG                       23.40 ft     54.30 sec
+============================================================
