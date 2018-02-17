@@ -1,10 +1,12 @@
 /**
-	PROGRAMMER: ???
+	PROGRAMMER: Ronnie C. Ripley
 	DESCRIPTION: Let human user roll dice against the computer.
 		Hands are scored by counting the largest number of duplicate face values.
          The hand with the highest number of duplicate dice wins.
          If both hands have the same number of duplicates, the higher face value wins.
          There can be ties.
+    Phone #: 425-623-4844(text available)
+    Hours spent: 2.5
 */
 
 import java.util.*; 
@@ -18,9 +20,10 @@ public class DiceGame {
    */
    public static final int COUNT = 0; //score[COUNT] holds count value of score.
    public static final int FACE = 1;  //score[FACE] holds face value corresponding to the count value.
-   public static Scanner kbd = new Scanner(System.in);
+   public static Scanner console = new Scanner(System.in);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+   {
        /* 
          This comment should be replaced with Java code that performs the following tasks:
        
@@ -41,8 +44,39 @@ public class DiceGame {
             
             8. Display good-bye!
       */
-
-	}// end main() method
+      String playerName = "";
+      String exit = "y";
+      boolean pass = false;
+      int diceHand = 0;
+      System.out.println("Welcome to the lab 7 dice game!");
+      System.out.println("What is your name?");
+      playerName = console.nextLine();
+      System.out.println("How many dice per hand?");
+      diceHand = console.nextInt();
+      int[] playerHand = new int[diceHand];
+      int[] computerHand = new int[diceHand];
+      do{
+         if(exit.equalsIgnoreCase("y"))
+         {
+            rollDice(playerHand, computerHand);
+            showHand(playerName, playerHand);
+            showHand("Computer", computerHand);
+            System.out.println("Play another Round?");
+            exit = console.next();
+         }
+         else if(exit.equalsIgnoreCase("n"))
+         {
+            pass = true;
+         }
+         else
+         {
+            System.out.println("Incorrect Input, please input Y or N");
+            exit = console.next();
+         }
+      
+      }while(!pass);
+      System.out.println("Goodbye and thanks for playing!");
+	}
 	
 	/**
       METHOD: rollDice
@@ -50,16 +84,18 @@ public class DiceGame {
       PARAMETERS: hand1 and hand2 are two dice hands to be filled with
          random die values between 1 and 6.
 	*/
-	public static void rollDice(int[] hand1, int[] hand2) {
-      /*
-         Relace this comment with code that performs the following tasks:
-            Declare a Random object as introduced in section 5.1.
-            Use a for-loop to visit each location of hand1 and hand2.
-            Assign a random value between 1 and 6 to each element in the hand arrays.
-      */
-      System.out.println("inside rollDice");//<--Delete this stub code when you have 
-                                            //written the code to replace the comments.
-	}// end rollDice() method
+	public static void rollDice(int[] hand1, int[] hand2) 
+   {
+      Random r = new Random();
+      for(int i=0; i<hand1.length; i++)
+      {
+         hand1[i] = r.nextInt(6)+1;
+      }
+      for(int n=0; n<hand2.length; n++)
+      {
+         hand2[n] = r.nextInt(6)+1;
+      }
+	}
 		
 	/**
       METHOD: showHand
@@ -69,17 +105,15 @@ public class DiceGame {
       PARAMETER: player is the player's name or title
       PARAMETER: hand is the player's hand of dice values.
 	*/
-	public static void showHand(String player, int[] hand) {
-      /*
-         Replace this comment with code that performs the following tasks:
-         Display ____'s hand:       <--where ____ is replaced by the player parameter
-         Use a for-loop to display # # # etc.   <--where # # # is replace by die face value in hand
-         Perform a println() to return the cursor to the beginning of the next line.
-      */
-      System.out.println("___'s hand: # # # # etc.");//<--Delete this stub code when you have 
-                                                     //written the code to replace the comments.
-
-	}// end showHand method()
+	public static void showHand(String player, int[] hand) 
+   {
+      System.out.printf("%s's hand: ",player);  
+      for(int i=0; i<hand.length; i++)
+      {
+         System.out.printf("%d ", hand[i]);
+      }
+      System.out.println(" ");
+	}
 
 	/**
 	   METHOD: calculateScore
