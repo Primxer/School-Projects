@@ -48,6 +48,9 @@ public class DiceGame {
       String exit = "y";
       boolean pass = false;
       int diceHand = 0;
+      int[] playerScore = new int[2];
+      int[] computerScore = new int[2];
+      
       System.out.println("Welcome to the lab 7 dice game!");
       System.out.println("What is your name?");
       playerName = console.nextLine();
@@ -61,6 +64,11 @@ public class DiceGame {
             rollDice(playerHand, computerHand);
             showHand(playerName, playerHand);
             showHand("Computer", computerHand);
+            playerScore = calculateScore(playerHand);
+            computerScore = calculateScore(computerHand);
+            System.out.printf("%s's Score: %s\n", playerName, scoreString(playerScore));
+            System.out.printf("Computers's Score: %s\n", scoreString(computerScore));
+            displayWinner(playerScore, computerScore, playerName);
             System.out.println("Play another Round?");
             exit = console.next();
          }
@@ -123,43 +131,30 @@ public class DiceGame {
          score[COUNT] holds count of the number of score[FACE]s
          i.e. 3 6s, 1 4, 5 1s, etc.  
 	*/
-	public static int[] calculateScore(int[] hand) {
-      /*
-         NOTE: Study the countDigits() method in the Benford.java program in section 7.7
-         to see how to declare, create and return an array from a method.
-         
-         Replace this comment with code that performs the following tasks:
-         
-            Declare and create a 2-element int array to hold a score. You can name it anything
-               you wish, but I will refer to it as score in these comments.
-            Declare and create a 7-element int array to hold the count of each face value in the hand.
-               You can name it anything you wish, but I will refer to it as counters in these comments.
-         
-            REMINDER: When you use the new operator to create an int array, each element
-               in the newly created array is automatically initialized to 0.
-         
-            Use a for-loop to count the number of 1s, 2s, 3s,...,6s in the hand, 
-               where counters[1] is used to count the 1s, counters[2] is used to count the 2s, etc.
-               (counters[0] isn't used for anything.)
-               
-               HINT: See the Tally.java program in section 7.7 for an example of counting
-               how many scores between 0 and 4 were earned on a quiz. Of course that
-               program gets the data from a file. Your program is getting the data
-               from the hand array. 
-         
-            Use a for-loop looking for the index of the largest counter in the array.
-               For the purpose of this discussion, let's say the value is stored in
-               a variable named maxIndex. 
-               HINT: See the solution to the 7.2 WQuiz.
-         
-            If you do everything above correctly, 
-               score[FACE] should be assigned maxIndex,
-               score[COUNT] should be assigned counters[maxIndex]
-               return score
-      */
-      return new int[2]; //<--Delete this stub code when you have written the code described 
-                         //in the comment above.
-                         //For now, this code returns a 2-element array containing zeros.
+	public static int[] calculateScore(int[] hand)
+   {
+      int[] score = new int[2];
+      int[] counters = new int[7];
+      
+      for(int check: hand)
+      {
+         counters[check]++;
+      }
+      
+      int maxI = 1;
+      int max = counters[1];
+      for(int i=0; i<counters.length; i++)
+      {
+         if(counters[i]>max)
+         {
+            max = counters[i];
+            maxI = i;
+         }
+      }
+      score[FACE] = maxI;
+      score[COUNT] = counters[maxI];
+      
+      return score;
 	}
    
    /**
@@ -173,16 +168,18 @@ public class DiceGame {
          be "1 1" or "1 2" or "1 3", etc. In other words, the "s" is not included
          in the string.
    */
-	public static String scoreString(int[] score) {
-      /*
-         Replace this comment with code that performs the following tasks:
-            if the score parameter's COUNT value is 1
-               return "1 " + the score's FACE value
-            otherwise
-               return "" + the score's COUNT value + " " + the score's FACE value followed by 's'
-      */
-      return "# #s"; //<--Delete this stub code when you have written the code described
-                      //in the comment above.      
+	public static String scoreString(int[] score) 
+   {
+      if(score[COUNT] == 1)
+      {
+         String fill = "1 " + score[FACE];
+         return fill;
+      }
+      else
+      {
+         String fill = "" + score[COUNT] + " " + score[FACE] + "'s";
+         return fill;
+      }   
 	}
       
    /*
@@ -196,17 +193,52 @@ public class DiceGame {
                0 if score1 == score2 (tie)
               +1 if score1 > score2  (score1 wins)
    */
-	public static int compareTo(int[] score1, int[] score2) {
-      /*
-         Replace this comment with code that performs the following tasks:
-            Be sure you understand the rules for scoring described in the comments
-            at the top of this file, and in the lab specs. 
-            Then return 
-               -1 if score1 < score2, 
-                0 if score1 == score2, or 
-                1 if score1 > score2.
-      */
-      return 0; //<--Delete this stub code when you have written the code for this function.
+	public static int compareTo(int[] score1, int[] score2) 
+   {
+      if(score1[COUNT] > score2[COUNT])
+      {
+         return 1;
+      }
+      else if(score1[COUNT] == score2[COUNT])
+      {
+         if(score1[FACE] > score2[FACE])
+         {
+            return 1;
+         }
+         else
+         {
+            return -1;
+         }
+      }
+      else
+      {
+         return -1;
+      }
 	}
-	
+   
+   
+   //Takes in 2 score arrays then calls the compareTo method to find the winner then displays their scores comparativly and who won the round
+   public static void displayWinner(int[] score1, int[] score2, String playerName)
+   {
+      int winner = compareTo(score1, score2);
+      if(winner == 1)
+      {
+         String filler = score1[COUNT]+" "+score1[FACE] +"'s beats "+ score2[COUNT]+" "+score2[FACE]+"'s";
+         System.out.println(filler);
+         System.out.printf("%s wins the round!\n", playerName);
+            
+      }
+      if(winner == -1)
+      {
+         String filler = score2[COUNT]+" "+score2[FACE]+"'s beats "+score1[COUNT]+" "+score1[FACE]+"'s"; 
+                  System.out.println(filler);
+         System.out.printf("The Computer wins the round!\n");
+      }
+      else if(winner == 0)
+      {
+         String filler = score1[COUNT]+" "+score1[FACE]+"'s is the same as "+score2[COUNT]+" "+score2[FACE]+"'s";
+         System.out.println(filler);
+         System.out.printf("It's a tie!\n");
+      }
+   }
 }
