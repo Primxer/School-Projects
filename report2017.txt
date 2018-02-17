@@ -36,3 +36,8 @@
   WILLIAMS KEANDRE M               24.90 ft     66.40 sec
   ZHENG YANG                       23.40 ft     54.30 sec
 ============================================================
+Total number of contestants: 34
+Average race time: 60.83 secs
+Average toss distance: 20.52 ft
+Best race time: 49.20 secs by  TRAMMELL REID M
+Best toss distance: 25.00 ft by  SANTIAGO JENNIFER

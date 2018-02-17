@@ -2,7 +2,7 @@
    Ronnie C. Ripley  
    425-623-4844(text available)
    Checkpoint program that asks user for a file name then reads out the contents of the file
-   Hours spent: 2.0
+   Hours spent: 8.5
 */
 import java.util.*;
 import java.io.*;
@@ -46,14 +46,7 @@ public class ContestLab {
          }
          count++;
       }
-      printEquals(60,newF);
-      System.out.print("\n");
-      System.out.print("Total number of contestants: " + (count/2+1));
-      System.out.printf("\nAverage race time: %.2f secs", (totalTime/(count/2+1)));
-      System.out.printf("\nAverage toss distance: %.2f ft", (totalDistance/(count/2+1)));
-      System.out.printf("\nBest race: %s s", time);
-      System.out.printf("\nBest toss distance: %s ft", toss);
-         
+      summary(newF, totalTime, totalDistance, count, time, toss);  
     }
     
    //Gets a user input for the name of a file
@@ -71,6 +64,7 @@ public class ContestLab {
       return new Scanner(f);
    }
    
+   //Displays the first 4 lines of the report
    public static void displayReportHeading(PrintStream output) throws FileNotFoundException
    {
       for(int i=0; i<=23; i++)
@@ -99,7 +93,7 @@ public class ContestLab {
          return currentBest;
       }
    }
-   
+   //Takes in a string, then compares it to the taken newDistance seeing which is lower and returns a modified string with the newDistance and newName
    public static String tossWinner(String currentBest, double newDistance, String newName)
    {
       Scanner check = new Scanner(currentBest);
@@ -117,15 +111,28 @@ public class ContestLab {
    }
    
    //Displayes the summary at the end 
-   public static void summary(PrintStream output, Scanner input)
+   public static void summary(PrintStream output, double totalTime, double totalDistance, int count, String time, String toss)
    {
-      int count = 0;
-      while(input.hasNextLine())
-      {
-         count++;
-         input.nextLine();
-      }
-      System.out.println("\n" + count);
+      Scanner bestTime = new Scanner(time);
+      Scanner bestDistance = new Scanner(toss);
+      double bestTimeS = bestTime.nextDouble();
+      double bestDistanceS = bestDistance.nextDouble();
+      String bestTimeName = bestTime.nextLine();
+      String bestDistanceName = bestDistance.nextLine();
+      printEquals(60,output);
+      System.out.print("\n");
+      System.out.print("Total number of contestants: " + (count/2+1));
+      System.out.printf("\nAverage race time: %.2f secs", (totalTime/(count/2+1)));
+      System.out.printf("\nAverage toss distance: %.2f ft", (totalDistance/(count/2+1)));
+      System.out.printf("\nBest race time: %.2f secs by %s", bestTimeS, bestTimeName);
+      System.out.printf("\nBest toss distance: %.2f ft by %s", bestDistanceS, bestDistanceName); 
+      output.print("\n");
+      output.print("Total number of contestants: " + (count/2+1));
+      output.printf("\nAverage race time: %.2f secs", (totalTime/(count/2+1)));
+      output.printf("\nAverage toss distance: %.2f ft", (totalDistance/(count/2+1)));
+      output.printf("\nBest race time: %.2f secs by %s", bestTimeS, bestTimeName);
+      output.printf("\nBest toss distance: %.2f ft by %s", bestDistanceS, bestDistanceName); 
+
    }
    //Displays the header that consisit of the Contestants, distance, and time titles
    public static void displayHeader(PrintStream output)
