@@ -24,26 +24,6 @@ public class DiceGame {
 
 	public static void main(String[] args) 
    {
-       /* 
-         This comment should be replaced with Java code that performs the following tasks:
-       
-            0.Declare and initialize variables needed for your program.
-               You will need variables and/or arrays to hold the human's name,
-               their preferred dice-hand size, the players' hands,
-               and the scores associated with those hands.
-            1. Greet the user, ask them for their name and the number of dice in a hand.
-            2. Create hands (int arrays) of the appropriate size.
-         
-            Repeat
-               3. Call rollDice() as needed to fill the hands with random dice values.
-               4. Call showHand() as needed to display the hands.
-               5. Call calulateScore() as needed to score the hands.
-               6. Call scoreString() as needed to display the hand scores.
-               7. Call compareTo() as needed to determine and display who won the round.
-            Until the user wants to quit 
-            
-            8. Display good-bye!
-      */
       String playerName = "";
       String exit = "y";
       boolean pass = false;
@@ -51,9 +31,7 @@ public class DiceGame {
       int[] playerScore = new int[2];
       int[] computerScore = new int[2];
       
-      System.out.println("Welcome to the lab 7 dice game!");
-      System.out.println("What is your name?");
-      playerName = console.nextLine();
+      playerName = displayWelcome();
       System.out.println("How many dice per hand?");
       diceHand = console.nextInt();
       int[] playerHand = new int[diceHand];
@@ -240,5 +218,12 @@ public class DiceGame {
          System.out.println(filler);
          System.out.printf("It's a tie!\n");
       }
+   }
+   
+   public static String displayWelcome()
+   {
+      System.out.println("Welcome to the lab 7 dice game!");
+      System.out.println("What is your name?");
+      return console.nextLine();
    }
 }
