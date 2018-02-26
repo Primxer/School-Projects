@@ -25,25 +25,25 @@ public class InventoryItem {
    
    public void setItemID(String id)
    {
-      if((id.matches("[0-9a-zA-Z]")))
+      if(id.matches("[0-9a-zA-Z]+"))
       {
-         throw new IllegalArgumentException("ID must contain at least one letter or one digit");
+         itemID = id;
       }
       else
       {
-         itemID = id;
+         throw new IllegalArgumentException("ID must contain at least one letter or one digit and only letters or digits");
       }
    }
    
    public void setDescription(String desc)
    {
-      if((desc.matches("[a-zA-Z]")))
+      if(desc.matches("[a-z A-Z]+"))
       {
-         throw new IllegalArgumentException("Description must contain letters");
+         description = desc;
       }
       else
       {
-         description = desc;
+         throw new IllegalArgumentException("Description must contain letters");
       }
    }
    
