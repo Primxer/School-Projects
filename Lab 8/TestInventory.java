@@ -16,7 +16,7 @@ public class TestInventory
       System.out.println(hammer.getItemID());
       
       def.setItemID("01A");
-      def.setDescription("Default object");
+      def.setDescription("100 thumbtacks");
       def.setPrice(100.55);
       hammer.setItemID("00B");
       hammer.setDescription("Its just a hammer");

@@ -1,0 +1,20 @@
+111A
+100 Thumbtacks
+5.95
+25
+222B
+10-pk Pens
+3.49
+12
+333C
+Large Eraser
+1.25
+21
+444D
+Clear Tape
+2.95
+5
+555E
+Stapler
+10.00
+9

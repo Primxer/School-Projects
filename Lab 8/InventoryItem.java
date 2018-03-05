@@ -37,7 +37,7 @@ public class InventoryItem {
    
    public void setDescription(String desc)
    {
-      if(desc.matches("[a-z A-Z]+"))
+      if(desc.matches("[0-9\\-a-z A-Z]+"))
       {
          description = desc;
       }
