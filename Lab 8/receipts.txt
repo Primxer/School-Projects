@@ -1,6 +1,0 @@
-                    SVC CS 142 Store Receipt
-           100 Thumbtacks   2 @     5.95     5.95
-
-           10-pk Pens   5 @     3.49     3.49
-
-    ======

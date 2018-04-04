@@ -3,8 +3,9 @@ import java.util.*;
 import java.io.*;
 public class CashRegister
 {
+   //Public scanner and tax constant
    public static Scanner console = new Scanner(System.in);
-   public static double TAX = 7.8;
+   public static double TAX = 0.078;
    public static void main (String args[]) throws FileNotFoundException
    {
       InventoryItem[] inventory = new InventoryItem[100];
@@ -38,6 +39,7 @@ public class CashRegister
       checkOut(inventory,count,newF); 
    }
    
+   //Finds and returns the index of if a matching string is found in the array is found in the array
    public static int indexOf(InventoryItem[] inv, String seekID, int size)
    {
       for(int i=0; i<size; i++)
@@ -50,9 +52,10 @@ public class CashRegister
       return -1;
    }
    
+   //Prints to a file the price, description, and quantity of the items "purchased"
    public static void addReceipt(PrintStream output, InventoryItem[] inv, int quantity, String ID, int size)
    {
-      output.printf("%11s%s"," ",inv[indexOf(inv,ID,size)].getDescription());
+      output.printf("%12s%s"," ",inv[indexOf(inv,ID,size)].getDescription());
       output.printf("%3s%s @", " ",quantity);
       output.printf("%5s%s"," ",inv[indexOf(inv,ID,size)].getPrice());
       output.printf("%5s%s"," ",inv[indexOf(inv,ID,size)].getPrice());
@@ -60,12 +63,43 @@ public class CashRegister
       
       
    }
-   
+   //Prints to a file the subtotal, tax, and the total of the items "purchased"
    public static void printReceipt(PrintStream output, double total)
    {
-      output.printf("%3s ======"," ");
+      
+      printCharacter(" ",42,output);
+      printCharacter("=",8,output);
+      output.println();
+      printCharacter(" ",30,output);
+      output.printf("Subtotal        %.2f", total);
+      output.println();
+      printCharacter(" ",35,output);
+      output.printf("Tax        %.2f \n", TAX*total); 
+      output.println();
+      if(total>10.00)
+      {
+         printCharacter(" ",32,output);
+      }
+      else
+      {
+         printCharacter(" ", 33,output);
+      }
+      output.printf("Total        %.2f \n", total+(TAX*total));
+      output.println();
+      printCharacter("-",56,output);
+      output.println();
    }
    
+   //Used to print a given character a given amount of times
+   public static void printCharacter(String character, int amount, PrintStream output)
+   {
+      for(int i=1; i<=amount; i++)
+      {
+         output.print(character);
+      }
+   }
+   
+   //Handles the "checking out" of the user by asking them the items and amount while trapped in a sentinal loop
    public static void checkOut(InventoryItem[] inv,int size,PrintStream output)
    {
       double total = 0.0;
@@ -74,6 +108,7 @@ public class CashRegister
       String previousID = " ";
       int quantity = 0;
       output.printf("%19s SVC CS 142 Store Receipt"," " );
+      output.println();
       output.println();
       do
       {
@@ -90,10 +125,10 @@ public class CashRegister
                }
                else
                {
-                  total += quantity*(inv[indexOf(inv,previousID,size)].getPrice());
                   System.out.println("Enter quantity> ");
                   quantity = console.nextInt();
                   console.nextLine();
+                  total += quantity*(inv[indexOf(inv,previousID,size)].getPrice());
                   addReceipt(output,inv,quantity, previousID,size); 
                }
             }
