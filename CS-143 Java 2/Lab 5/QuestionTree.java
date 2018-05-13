@@ -34,12 +34,71 @@ public class QuestionTree {
    //Constructor method that fills the BT with multiple nodes of questions/answers
    public QuestionTree()
    {
-      root = new QuestionNode("Is it an animal?");
-      root.yes = new QuestionNode("Does it hop?");
-      root.yes.no = new QuestionNode("dog");
-      root.yes.yes = new QuestionNode("frog");
-      root.no = new QuestionNode("computer");
+      root = new QuestionNode("Computer");
    }
+   
+   void askQuestions()
+   {
+      askQuestions(root);
+   }
+   
+   void askQuestions(QuestionNode data)
+   {
+     if(data.yes == null && data.no == null)
+     {
+         System.out.println("Is your object a " + data.input + "?");
+         String yesno = console.nextLine();
+         if(yesno.equalsIgnoreCase("y"))
+         {
+            System.out.println("Great, I got it right");
+         }
+         else
+         {
+            System.out.println("What is the name of your object?");
+            String object = console.nextLine();
+            System.out.println("Give me a yes/no question to distinguish object " + object + " from object " + data.input);
+            String question = console.nextLine();
+            System.out.println("What is the answer for object " + object + "? (y/n)");
+            String yn = console.nextLine();
+            QuestionNode adder = createNewSubTree(data, object, question, yn);
+         }
+     }
+     else
+     {
+         System.out.println(data.input);
+         String yesno = console.nextLine();
+         if(yesno.equalsIgnoreCase("y"))
+         {
+            askQuestions(data.yes);
+         }
+         else
+         {
+            askQuestions(data.no);
+         }
+     }  
+   }
+   
+   QuestionNode createNewSubTree(QuestionNode data, String object, String question, String yesno)
+   {
+      String previous = data.input;
+      QuestionNode ret = new QuestionNode(question);
+      if(yesno.equalsIgnoreCase("y"))
+      {
+         ret.yes = new QuestionNode(object);
+         ret.no = new QuestionNode(previous);
+      }
+      else
+      {
+         ret.yes = new QuestionNode(previous);
+         ret.no = new QuestionNode(object);
+      }
+      return ret;
+   }
+   
+   void read(Scanner input)
+   {
+      
+   }  
    
    //Default write method that calls the recursive form of itself
    public void write(PrintStream output)

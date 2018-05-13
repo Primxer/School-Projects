@@ -9,7 +9,7 @@ import java.util.*;
 import java.io.*;
 
 public class QuestionTreeClient {
-
+   public static Scanner console = new Scanner(System.in);
       /*
          NOTE: The only input main() should perform is by calling the yesTo() 
          method of the QuestionTree class appropriately. DO NOT DECLARE A 
@@ -33,7 +33,13 @@ public class QuestionTreeClient {
    public static void main(String[] args)throws FileNotFoundException
    {
       QuestionTree test = new QuestionTree();
-      test.write(System.out);
+      String exit = "";
+      do
+      {
+         test.askQuestions();
+         System.out.println("Do you want to go again?");
+         exit = console.nextLine();
+      }while(exit.equalsIgnoreCase("y"));
 
    }//end main() method
    
