@@ -34,13 +34,31 @@ public class QuestionTreeClient {
    {
       QuestionTree test = new QuestionTree();
       String exit = "";
+      String file = "data.txt";
+      PrintStream output = new PrintStream(new File(file));
+      System.out.println("Do you wish to read from previous tree?");
+      String yn = console.nextLine();
+      if(yn.equalsIgnoreCase("y"))
+      {
+         Scanner scan = new Scanner(new File(file));
+         System.out.println(scan.nextLine());
+         test.read(scan);
+      }
       do
       {
          test.askQuestions();
+
          System.out.println("Do you want to go again?");
          exit = console.nextLine();
       }while(exit.equalsIgnoreCase("y"));
-
+      
+      System.out.println("Do you wish to save?");
+      String save = console.nextLine();
+      if(save.equalsIgnoreCase("y"))
+      {
+         test.write(output);
+         System.out.println("Tree has been saved");
+      }
    }//end main() method
    
 }//end QuestionTreeClient class

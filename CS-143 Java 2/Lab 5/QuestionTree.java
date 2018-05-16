@@ -8,6 +8,7 @@
 
 import java.util.*;
 import java.io.*;
+import java.util.Scanner;
 
 public class QuestionTree {
 
@@ -39,6 +40,7 @@ public class QuestionTree {
    
    void askQuestions()
    {
+      System.out.println("Think of an object for me to guess...");
       askQuestions(root);
    }
    
@@ -46,7 +48,7 @@ public class QuestionTree {
    {
      if(data.yes == null && data.no == null)
      {
-         System.out.println("Is your object a " + data.input + "?");
+         System.out.println("Is your object a " + data.input + "? (y/n)");
          String yesno = console.nextLine();
          if(yesno.equalsIgnoreCase("y"))
          {
@@ -60,7 +62,8 @@ public class QuestionTree {
             String question = console.nextLine();
             System.out.println("What is the answer for object " + object + "? (y/n)");
             String yn = console.nextLine();
-            QuestionNode adder = createNewSubTree(data, object, question, yn);
+            QuestionNode newer = createNewSubTree(data, object, question, yn);
+            root = add(root, newer, data.input);
          }
      }
      else
@@ -75,30 +78,48 @@ public class QuestionTree {
          {
             askQuestions(data.no);
          }
-     }  
+     }
    }
    
-   QuestionNode createNewSubTree(QuestionNode data, String object, String question, String yesno)
+   QuestionNode createNewSubTree(QuestionNode data, String object, String question, String yn)
    {
       String previous = data.input;
-      QuestionNode ret = new QuestionNode(question);
-      if(yesno.equalsIgnoreCase("y"))
+      QuestionNode newer = new QuestionNode(question);
+      if(yn.equalsIgnoreCase("y"))
       {
-         ret.yes = new QuestionNode(object);
-         ret.no = new QuestionNode(previous);
-      }
-      else
+         newer.yes = new QuestionNode(object);
+         newer.no = new QuestionNode(previous);
+      }  
+      else if(yn.equalsIgnoreCase("n"))
       {
-         ret.yes = new QuestionNode(previous);
-         ret.no = new QuestionNode(object);
+         newer.no = new QuestionNode(object);
+         newer.yes = new QuestionNode(previous);
       }
-      return ret;
+      return newer;
+      
    }
    
-   void read(Scanner input)
+   QuestionNode add(QuestionNode data, QuestionNode newer, String previous)
    {
-      
-   }  
+      if(data.input.equals(previous))
+      {
+         data = newer;
+      }
+      else if(data.yes != null)
+      {
+         data.yes = add(data.yes, newer, previous);
+         if(data.no != null)
+         {
+            data.no = add(data.no, newer, previous);
+         }
+      }
+      else if(data.no != null)
+      {
+         data.no = add(data.no, newer, previous);
+      }
+      return data;
+   }
+   
    
    //Default write method that calls the recursive form of itself
    public void write(PrintStream output)
@@ -122,6 +143,29 @@ public class QuestionTree {
          write(data.no, output);
       }
       
+   }
+   
+   void read(Scanner input)
+   {  
+      read(root, input);
+   }
+   
+   private void read(QuestionNode data, Scanner input)
+   {
+      if(input.hasNextLine())
+      {
+         input.nextLine();
+         data = new QuestionNode(input.nextLine());
+         if(input.nextLine().equalsIgnoreCase("a:"))
+         {  
+            input.nextLine();
+            data.yes = new QuestionNode(input.nextLine());
+            input.nextLine();
+            data.no = new QuestionNode(input.nextLine());
+         }
+         read(data.yes, input);
+         read(data.no, input);
+      }    
    }
    /*
       METHOD: yesTo
