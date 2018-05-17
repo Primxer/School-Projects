@@ -1,0 +1,22 @@
+Q
+Is it an animal?
+Q
+Does it hop?
+A
+Frog
+A
+Dog
+Q
+Is it made of paper?
+A
+Book
+Q
+Can you write with it?
+Q
+Does it use ink?
+A
+pen
+A
+Pencil
+A
+Computer

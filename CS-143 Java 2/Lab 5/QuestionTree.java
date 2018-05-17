@@ -133,39 +133,50 @@ public class QuestionTree {
       if(data != null)
       {
          if(data.yes == null && data.no == null)
-            output.println("A: ");
+            output.println("A");
          else
-            output.println("Q: ");
+            output.println("Q");
             
-            
+                
          output.println(data.input);
          write(data.yes, output);
          write(data.no, output);
-      }
-      
+      }   
    }
    
    void read(Scanner input)
    {  
-      read(root, input);
+      input.nextLine();
+      root = new QuestionNode(input.nextLine());
+      read(root, input, true);
+      read(root, input, false);
    }
    
-   private void read(QuestionNode data, Scanner input)
+   private void read(QuestionNode parentNode, Scanner input, boolean yesDirection)
    {
-      if(input.hasNextLine())
+      if(yesDirection)
+      {  
+         input.nextLine();
+         parentNode.yes = new QuestionNode(input.nextLine());
+         if(input.nextLine().contains("Q"))
+         {
+            read(parentNode.yes.yes, input, true);
+            read(parentNode.yes.no, input, false);
+         }
+      }
+      else
       {
          input.nextLine();
-         data = new QuestionNode(input.nextLine());
-         if(input.nextLine().equalsIgnoreCase("a:"))
-         {  
-            input.nextLine();
-            data.yes = new QuestionNode(input.nextLine());
-            input.nextLine();
-            data.no = new QuestionNode(input.nextLine());
+         parentNode.no = new QuestionNode(input.nextLine());
+         if(input.nextLine().contains("Q"))
+         {
+            read(parentNode.no.yes, input, true);
+            read(parentNode.no.no, input, false);
          }
-         read(data.yes, input);
-         read(data.no, input);
-      }    
+      }
+
+      if(!input.hasNext())
+         return;
    }
    /*
       METHOD: yesTo
