@@ -2,7 +2,7 @@
    Ronnie C. Ripley
    Main class that handles the QuestionTree program
    425-623-4844(txt available)
-   Hrs: 5.0
+   Hrs: 25.0
 */ 
 
 import java.util.*;
@@ -10,26 +10,9 @@ import java.io.*;
 
 public class QuestionTreeClient {
    public static Scanner console = new Scanner(System.in);
-      /*
-         NOTE: The only input main() should perform is by calling the yesTo() 
-         method of the QuestionTree class appropriately. DO NOT DECLARE A 
-         Scanner OBJECT LINKED TO System.in WITHIN THIS CLASS.
-         
-         In the post-checkpoint version of your program, have main() call the 
-         QuestionTree(), yesTo(), read(), write() and askQuestions()
-         methods of the QuestionTree class appropriately to perform the following tasks:
-         
-         1. Create a QuestionTree object.
-         
-         2. If the user wants to override the tree with data from questions.txt,
-            read the data from the file into the tree. 
-            
-         3. Keep playing the guessing game until the user wants to quit.
-         
-         4. Save the current tree in questions.txt if the user desires.
-     
-      */
 
+   //main method that contains a QuestionTree but prompts the user if they wish to load a save of the tree from a txt file
+   //then calls the askQuestion method and after the user is done prompts if they wish to save to the same txt file as stated above
    public static void main(String[] args)throws FileNotFoundException
    {
       QuestionTree test = new QuestionTree();
@@ -44,7 +27,6 @@ public class QuestionTreeClient {
       do
       {
          test.askQuestions();
-
          System.out.println("Do you want to go again?");
          exit = console.nextLine();
       }while(exit.equalsIgnoreCase("y"));
