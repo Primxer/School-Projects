@@ -15,11 +15,6 @@ public class GrammarProcessor{
       if(grammar == null || grammar.size() == 0)
          throw new IllegalArgumentException();
       
-      System.out.println("GrammarProcessor Constructor display of grammar parameter: ");
-      for(String s: grammar){
-         System.out.println(s);
-      }
-      
       for(String s: grammar){
          String[] parts = s.split("::=");
          String key = parts[0];
@@ -31,9 +26,51 @@ public class GrammarProcessor{
             }
             rules.put(key, array);
          }
+      } 
+   }
+   
+   //Checks rules keySet and returns true if the given symbol is found
+   boolean grammarContains(String symbol){
+      for(String s: rules.keySet()){
+         if(s.equals(symbol))
+            return true;
       }
+      return false;
+   }
+   
+   //Returns a string of the keySet in rules
+   String getSymbols(){
+     return rules.keySet().toString();
+   }
+   
+   //Calls the recursive form of itself to produce a random occurance of the given symbol 
+   String generate(String symbol){
+      if(!rules.containsKey(symbol))
+         throw new IllegalArgumentException("Key not found"); 
+      else
+      generate(symbol, "");
       
-      printRules();     
+
+   
+   private void generate(String symbol, String re){
+      String[] array = rules.get(symbol);
+      Random rn = new Random();
+      List<String> strings = new ArrayList<String>();     
+      for(String s: array){
+         Scanner scan = new Scanner(s);
+         while(scan.hasNext()){
+            strings.add(scan.next());
+         }
+      } 
+      
+      int random = rn.nextInt(strings.size());
+      if(rules.containsKey(strings.get(random))){
+         generate(strings.get(random), re); 
+      }
+      else{
+         re += " ";
+         re += strings.get(random);
+      }
    }
    
    //Method that prints the key with all the elements attached to the key in the rules map
