@@ -45,32 +45,39 @@ public class GrammarProcessor{
    
    //Calls the recursive form of itself to produce a random occurance of the given symbol 
    String generate(String symbol){
+      List<String> array = new ArrayList<String>();
       if(!rules.containsKey(symbol))
          throw new IllegalArgumentException("Key not found"); 
-      else
-      generate(symbol, "");
-      
-
-   
-   private void generate(String symbol, String re){
-      String[] array = rules.get(symbol);
-      Random rn = new Random();
-      List<String> strings = new ArrayList<String>();     
+      else{
+         generate(symbol, array);
+      }
+      String fin = "";
       for(String s: array){
+         fin += s;
+      }
+      
+      return fin;
+
+   }
+   
+   private void generate(String symbol, List<String> array){
+      List<String> choices = new ArrayList<String>();
+      for(String s: rules.get(symbol)){
          Scanner scan = new Scanner(s);
          while(scan.hasNext()){
-            strings.add(scan.next());
+            choices.add(scan.next());
          }
       } 
-      
-      int random = rn.nextInt(strings.size());
-      if(rules.containsKey(strings.get(random))){
-         generate(strings.get(random), re); 
+     Random rn = new Random();
+     int random = rn.nextInt(choices.size());
+     String selection = choices.get(random);
+      if(rules.containsKey(selection)){
+            generate(selection, array);
       }
       else{
-         re += " ";
-         re += strings.get(random);
+         array.add(selection);
       }
+       
    }
    
    //Method that prints the key with all the elements attached to the key in the rules map
