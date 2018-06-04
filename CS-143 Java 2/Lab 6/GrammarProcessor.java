@@ -2,7 +2,7 @@
    Ronnie C. Ripley
    Program that processes BNF grammer by sorting it into maps and sets which will later produce random elements of grammar to be produced.
    425-623-4844(txt available)
-   Hrs: 5.0
+   Hrs: 18.0
 */ 
 import java.util.*;
 import java.io.*;
@@ -53,31 +53,59 @@ public class GrammarProcessor{
       }
       String fin = "";
       for(String s: array){
-         fin += s;
+         fin = fin +s;
+         fin+=" ";
       }
       
       return fin;
 
    }
    
+   //Recursivly goes through rules non-terminals then adds to the given list if it has reached a terminal and adds the randomly selected rule to it
    private void generate(String symbol, List<String> array){
       List<String> choices = new ArrayList<String>();
       for(String s: rules.get(symbol)){
-         Scanner scan = new Scanner(s);
-         while(scan.hasNext()){
-            choices.add(scan.next());
-         }
+         choices.add(s);
       } 
      Random rn = new Random();
      int random = rn.nextInt(choices.size());
      String selection = choices.get(random);
-      if(rules.containsKey(selection)){
-            generate(selection, array);
+     List<String> test = new ArrayList<String>();
+     Scanner scan = new Scanner(selection);
+     while(scan.hasNext()){
+      test.add(scan.next());
+     }
+     for(String s: test){
+        if(rules.containsKey(s)){
+              generate(s, array);
+        }
+        else{
+           array.add(s);
+        }
+     }  
+   }
+   
+   //Calls the generate method the given number of times and adds and returns them in an array
+   String[] generate(String symbol, int times)
+   {  
+      List<String> array = new ArrayList<String>();
+      List<String> trimmed = new ArrayList<String>();
+      for(int i=0; i< times; i++){
+         generate(symbol, array);
+         String temp = "";
+         for(String s: array){
+            temp += s;
+            temp += " ";
+         }
+         trimmed.add(temp);
+         array = new ArrayList<String>();
+         
       }
-      else{
-         array.add(selection);
+      String[] re = new String[trimmed.size()];
+      for(int i=0; i<re.length; i++){
+         re[i] = trimmed.get(i);
       }
-       
+      return re;
    }
    
    //Method that prints the key with all the elements attached to the key in the rules map

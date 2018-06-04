@@ -27,12 +27,12 @@ public class KillList extends LinkedList<AssassinNode>{
          String name = names.next().getPlayer();
          temp += "#";
          temp += name;
-         temp += "\\n";
+         temp += "\n";
          temp += name;
       }
       temp += "#";
       temp += this.getFirst().getPlayer();
-      temp += "\\n";
+      temp += "\n";
       return temp;
    }
 }

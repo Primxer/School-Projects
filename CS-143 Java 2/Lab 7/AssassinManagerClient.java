@@ -39,12 +39,24 @@ public class AssassinManagerClient {
          try {
             mgr.kill(victim);
          }catch(Exception e) {
-            System.out.println("Victim " + victim + " is not a current player in the kill ring.");
+            //System.out.println("Victim " + victim + " is not a current player in the kill ring.");
+            System.out.println(e);
          }
       }//end while loop
       System.out.println("\nGame was won by " + mgr.winner());
       System.out.println("Final gravyard is as follows:");
       mgr.printGraveyard();
+      String quit = "";
+      while(!quit.equals("QUIT")){
+         System.out.print("Enter victim name: (QUIT to quit)");
+         quit = keyboard.nextLine();
+         if(mgr.graveyardContains(quit)){
+            System.out.printf("graveyardContains(\"%s\") is true\n", quit);
+         }
+         else{
+            System.out.printf("graveyardContains(\"%s\") is false\n", quit);
+         }
+      }
    }//end main() method
    
    //method: fillArrayList

@@ -17,7 +17,7 @@ public class GrammarProcessorClient {
       List<String> grammar = grammarFromFile(console);
       GrammarProcessor processor = new GrammarProcessor(grammar); 
         
-     // Generate expressions based on grammar elements chosen by user
+      // Generate expressions based on grammar elements chosen by user
       System.out.println("\n" + processor.getSymbols()); 
       System.out.print("Which symbol do you want? (press <enter> to quit) ");
       String symbol = console.nextLine();
@@ -25,22 +25,19 @@ public class GrammarProcessorClient {
          if ( !processor.grammarContains(symbol) ) 
             System.out.println(symbol + " not in grammar!");
          else {
-            //try {
-            {               //System.out.print("How many expressions? ");
-               //int howMany = Integer.parseInt(console.nextLine());
-               String expressions = processor.generate(symbol);
-               System.out.println(expressions);
-               //for( String s : expressions )
-                  //System.out.println(s);
-            }//catch(Exception e ){
-               //System.out.println("Invalid value for number of expressions.");
-            //}
+            try {
+               System.out.print("How many expressions? ");
+               int howMany = Integer.parseInt(console.nextLine());
+               String[] expressions = processor.generate(symbol,howMany);
+               for( String s : expressions )
+                  System.out.println(s);
+            }catch(Exception e ){
+               System.out.println("Invalid value for number of expressions.");
+            }
          }
          System.out.println("\n" + processor.getSymbols()); //test getSymbols()
          System.out.print("Which symbol do you want? (press <enter> to quit) ");
          symbol = console.nextLine();
-         
-         
       }
 
     }//end main() method 
